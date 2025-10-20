@@ -1,5 +1,5 @@
 # SQL
-1) Differences between Stored Procedures vs Functions
+# 1) Differences between Stored Procedures vs Functions
 
 *Overview*
 
@@ -56,7 +56,7 @@ RETURN
     WHERE CustomerID = @CustomerID AND Status = 'Active'
 );
 
-2) SQL Server Triggers
+# 2) SQL Server Triggers
 
 *Overview*
 
@@ -96,7 +96,7 @@ BEGIN
     SELECT CustomerID, TotalAmount FROM inserted;
 END;
 
-3) Views
+# 3) Views
 
 *Overview*
 
