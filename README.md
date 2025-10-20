@@ -24,7 +24,9 @@ You should use a Function when:
   
 Example — Stored Procedure
 
-'''sql
+
+
+```sql
 CREATE PROCEDURE dbo.AddCustomer
     @Name NVARCHAR(100),
     @Email NVARCHAR(100),
@@ -45,8 +47,12 @@ BEGIN
     END CATCH
 END;
 
+
+```
 Example — Function
 
+
+```sql
 CREATE FUNCTION dbo.GetActiveOrders(@CustomerID INT)
 RETURNS TABLE
 AS
@@ -57,6 +63,8 @@ RETURN
     WHERE CustomerID = @CustomerID AND Status = 'Active'
 );
 
+
+```
 # 2) SQL Server Triggers
 
 *Overview*
@@ -74,6 +82,8 @@ SQL Server provides two virtual tables inside triggers:
 
   Example — AFTER DELETE trigger for audit logging
 
+
+```
   CREATE TRIGGER dbo.trg_Employee_Delete
 ON dbo.Employees
 AFTER DELETE
@@ -85,8 +95,12 @@ BEGIN
     FROM deleted;
 END;
 
+
+```
 Example — INSTEAD OF trigger on a view
 
+
+```sql
 CREATE TRIGGER trg_vw_Order_Insert
 ON dbo.vw_OrdersCustomers
 INSTEAD OF INSERT
@@ -97,6 +111,7 @@ BEGIN
     SELECT CustomerID, TotalAmount FROM inserted;
 END;
 
+```
 # 3) Views
 
 *Overview*
@@ -111,13 +126,19 @@ Benefits of using Views:
 
 Example — Simple view
 
+
+```sql
 CREATE VIEW dbo.vw_CustomerOrders
 AS
 SELECT c.CustomerID, c.Name, o.OrderID, o.OrderDate, o.TotalAmount
 FROM dbo.Customers c
 JOIN dbo.Orders o ON c.CustomerID = o.CustomerID;
 
+```
 Example — Summary view
+
+
+```sql
 
 CREATE VIEW dbo.vw_CustomerOrderSummary
 AS
@@ -127,6 +148,8 @@ SELECT c.CustomerID, c.Name,
 FROM dbo.Customers c
 LEFT JOIN dbo.Orders o ON c.CustomerID = o.CustomerID
 GROUP BY c.CustomerID, c.Name;
+
+
 
 
   
