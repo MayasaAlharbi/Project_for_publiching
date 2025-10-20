@@ -14,15 +14,15 @@ is a programmable unit that performs operations on the database. It can execute 
 **When i use it**
 
 **You should use a Stored Procedure when:**
-	-You need to modify or manage data (for example, running INSERT or UPDATE commands).
-    -You want to control transactions (using BEGIN TRAN, COMMIT, or ROLLBACK).
-	-You need to return multiple result sets.
-	-You’re performing complex operations like maintenance or batch processes.
+	•You need to modify or manage data (for example, running INSERT or UPDATE commands)
+    •You want to control transactions (using BEGIN TRAN, COMMIT, or ROLLBACK).
+	•You need to return multiple result sets.
+	•You’re performing complex operations like maintenance or batch processes.
 
 **You should use a Function when:**
-	•	You need reusable logic inside a query.
-	•	You want to calculate or transform data and return it as a single value or table.
-	•	You need cleaner and more modular query code.
+	•You need reusable logic inside a query.
+	•You want to calculate or transform data and return it as a single value or table.
+	•You need cleaner and more modular query code.
   
 Example — Stored Procedure
 
@@ -86,7 +86,7 @@ SQL Server provides two virtual tables inside triggers:
 
 
 ```
-  CREATE TRIGGER dbo.trg_Employee_Delete
+CREATE TRIGGER dbo.trg_Employee_Delete
 ON dbo.Employees
 AFTER DELETE
 AS
@@ -150,7 +150,7 @@ SELECT c.CustomerID, c.Name,
 FROM dbo.Customers c
 LEFT JOIN dbo.Orders o ON c.CustomerID = o.CustomerID
 GROUP BY c.CustomerID, c.Name;
-
+```
 
 
 
