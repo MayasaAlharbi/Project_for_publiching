@@ -24,6 +24,7 @@ You should use a Function when:
   
 Example — Stored Procedure
 
+'''sql
 CREATE PROCEDURE dbo.AddCustomer
     @Name NVARCHAR(100),
     @Email NVARCHAR(100),
