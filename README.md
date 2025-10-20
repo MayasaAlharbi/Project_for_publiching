@@ -110,7 +110,6 @@ BEGIN
     INSERT INTO dbo.Orders (CustomerID, TotalAmount)
     SELECT CustomerID, TotalAmount FROM inserted;
 END;
-
 ```
 # 3) Views
 
@@ -135,6 +134,7 @@ FROM dbo.Customers c
 JOIN dbo.Orders o ON c.CustomerID = o.CustomerID;
 
 ```
+
 Example — Summary view
 
 
