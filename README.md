@@ -4,18 +4,20 @@
 *Overview*
 
 •	A Stored Procedure (SP) :
+
 is a programmable unit that performs operations on the database. It can execute CRUD actions (INSERT/UPDATE/DELETE/SELECT), manage transactions, and return result sets or output parameters. Called with EXEC or EXECUTE.
 
 •	A Function (UDF — User Defined Function) :
+
   returns a single value (Scalar) or a table (Table-valued). It’s used inside SQL expressions like SELECT, WHERE, or JOIN. Functions are pure — they shouldn’t modify database state (no INSERT/UPDATE/DELETE in T-SQL functions).
 
 *When i use it*
 
 You should use a Stored Procedure when:
-	•	You need to modify or manage data (for example, running INSERT or UPDATE commands).
-	•	You want to control transactions (using BEGIN TRAN, COMMIT, or ROLLBACK).
-	•	You need to return multiple result sets.
-	•	You’re performing complex operations like maintenance or batch processes.
+	-You need to modify or manage data (for example, running INSERT or UPDATE commands).
+    -You want to control transactions (using BEGIN TRAN, COMMIT, or ROLLBACK).
+	-You need to return multiple result sets.
+	-You’re performing complex operations like maintenance or batch processes.
 
 You should use a Function when:
 	•	You need reusable logic inside a query.
