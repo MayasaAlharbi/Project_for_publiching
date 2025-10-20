@@ -14,15 +14,15 @@ is a programmable unit that performs operations on the database. It can execute 
 **When i use it**
 
 **You should use a Stored Procedure when:**
-	•You need to modify or manage data (for example, running INSERT or UPDATE commands)
-    •You want to control transactions (using BEGIN TRAN, COMMIT, or ROLLBACK).
-	•You need to return multiple result sets.
-	•You’re performing complex operations like maintenance or batch processes.
+	- You need to modify or manage data (for example, running INSERT or UPDATE commands)
+    - You want to control transactions (using BEGIN TRAN, COMMIT, or ROLLBACK).
+	- You need to return multiple result sets.
+	- You’re performing complex operations like maintenance or batch processes.
 
 **You should use a Function when:**
-	•You need reusable logic inside a query.
-	•You want to calculate or transform data and return it as a single value or table.
-	•You need cleaner and more modular query code.
+	- You need reusable logic inside a query.
+	- You want to calculate or transform data and return it as a single value or table.
+	- You need cleaner and more modular query code.
   
 Example — Stored Procedure
 
@@ -74,12 +74,12 @@ RETURN
 A Trigger is a piece of SQL code that executes automatically when a specific event occurs in the database, such as an INSERT, UPDATE, or DELETE operation. Triggers are great for enforcing rules or recording changes without requiring manual actions.
 
 There are two main types of triggers in SQL Server:
-	•	AFTER triggers, which run after the operation is completed.
-	•	INSTEAD OF triggers, which replace the original operation with custom logic.
+- AFTER triggers, which run after the operation is completed.
+- INSTEAD OF triggers, which replace the original operation with custom logic.
 
 SQL Server provides two virtual tables inside triggers:
-	•	inserted – holds new records.
-	•	deleted – holds old records that were modified or deleted.
+- inserted – holds new records.
+- deleted – holds old records that were modified or deleted.
 
 
   Example — AFTER DELETE trigger for audit logging
@@ -120,10 +120,10 @@ END;
 A View is a virtual table created from a SQL query. It doesn’t store data itself but displays data from one or more tables. Views are perfect for simplifying complex queries, improving security, and reusing logic across multiple parts of your application.
 
 Benefits of using Views:
-	•	Simplifies complex joins and aggregations.
-	•	Enhances security by limiting access to base tables.
-	•	Makes your code more modular and easier to maintain.
-	•	Can improve performance using Indexed Views, which store results physically for faster access.
+	- Simplifies complex joins and aggregations.
+	-	Enhances security by limiting access to base tables.
+	-	Makes your code more modular and easier to maintain.
+	-	Can improve performance using Indexed Views, which store results physically for faster access.
 
 Example — Simple view
 
