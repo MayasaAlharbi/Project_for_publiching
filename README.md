@@ -99,6 +99,7 @@ END;
 3) Views
 
 *Overview*
+
 A View is a virtual table created from a SQL query. It doesn’t store data itself but displays data from one or more tables. Views are perfect for simplifying complex queries, improving security, and reusing logic across multiple parts of your application.
 
 Benefits of using Views:
