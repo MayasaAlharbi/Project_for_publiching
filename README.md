@@ -114,8 +114,9 @@ Is a PL/SQL block or a PL/SQL procedure associated with a
 table, view, schema, or database
 Executes implicitly whenever a particular event takes place
 Can be either of the following:
-Application trigger:Fires whenever an event occurs with a particular application 
-Database trigger: Fires whenever a data event (such as DML) or system event (such as logon or shutdown) occurs on a schema or database
+
+    -Application trigger:Fires whenever an event occurs with a particular application 
+    -Database trigger: Fires whenever a data event (such as DML) or system event (such as logon or shutdown) occurs on a schema or database
 
 
 There are two main types of triggers in SQL Server:
@@ -131,21 +132,23 @@ SQL Server provides two virtual tables inside triggers:
 •Types of DML Triggers:
 The trigger type determines whether the body executes for each row or only once for the triggering statement.
 
--A statement trigger:
-Executes once for the triggering event Is the default type of trigger Fires once even if no rows are affected at all
+    -A statement trigger:
+     Executes once for the triggering event Is the default type of trigger Fires once even if no rows are affected at all
 
--A row trigger:
+    -A row trigger:
 Executes once for each row affected by the triggering event Is not executed if the triggering event does not affect any rows Is indicated by specifying the FOR EACH ROW clause
 
 • Trigger Timing
 When should the trigger fire?
-  BEFORE: Execute the trigger body before the triggering DML
-event on a table.
-  AFTER: Execute the trigger body after the triggering DML
-event on a table.
-  INSTEAD OF: Execute the trigger body instead of the
-triggering statement. This is used for views that are not
-otherwise modifiable. Note: If multiple triggers are defined for the same object, then the order of firing triggers is arbitrary.
+
+    -BEFORE: Execute the trigger body before the triggering DML
+    event on a table.
+    -AFTER: Execute the trigger body after the triggering DML
+    event on a table.
+    -INSTEAD OF: Execute the trigger body instead of the
+    triggering statement. This is used for views that are not
+    otherwise modifiable. 
+	-Note: If multiple triggers are defined for the same object, then the order of firing triggers is arbitrary.
 
 
   Example —  trigger 
