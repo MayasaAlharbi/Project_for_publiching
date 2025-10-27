@@ -5,10 +5,22 @@
 
 •	A Stored Procedure (SP) :
 
-is a programmable unit that performs operations on the database. It can execute CRUD actions (INSERT/UPDATE/DELETE/SELECT), manage transactions, and return result sets or output parameters. Called with EXEC or EXECUTE.
+A procedure:
+Is a type of subprogram that performs an action
+Can be stored in the database as a schema object
+Promotes reusability and maintainability
+
+in anthor word is a programmable unit that performs operations on the database. It can execute CRUD actions (INSERT/UPDATE/DELETE/SELECT), manage transactions, and return result sets or output parameters. Called with EXEC or EXECUTE.
 
 •	A Function (UDF — User Defined Function) :
+A function:
+Is a named PL/SQL block that returns a value
+Can be stored in the database as a schema object for
+repeated execution
+Is called as part of an expression or is used to provide a
+parameter value
 
+in anthor word
 returns a single value (Scalar) or a table (Table-valued). It’s used inside SQL expressions like SELECT, WHERE, or JOIN. Functions are pure — they shouldn’t modify database state (no INSERT/UPDATE/DELETE in T-SQL functions).
 
 **When i use it**
@@ -26,54 +38,85 @@ returns a single value (Scalar) or a table (Table-valued). It’s used inside SQ
 	- You want to calculate or transform data and return it as a single value or table.
 	- You need cleaner and more modular query code.
   
-Example — Stored Procedure
+Example 1 — Stored Procedure
 
 
 
 ```sql
-CREATE PROCEDURE dbo.AddCustomer
-    @Name NVARCHAR(100),
-    @Email NVARCHAR(100),
-    @NewCustomerID INT OUTPUT
-AS
-BEGIN
-    SET NOCOUNT ON;
-    BEGIN TRY
-        BEGIN TRAN;
-        INSERT INTO dbo.Customers (Name, Email)
-        VALUES (@Name, @Email);
-        SET @NewCustomerID = SCOPE_IDENTITY();
-        COMMIT TRAN;
-    END TRY
-    BEGIN CATCH
-        ROLLBACK TRAN;
-        THROW;
-    END CATCH
-END;
+CREATE OR REPLACE PROCEDURE raise_salary  (id      IN employees.employee_id%TYPE,   percent IN NUMBER)
+ IS
+ BEGIN
+ UPDATE employees
+ SET    salary = salary * (1 + percent/100)
+ WHERE  employee_id = id; END raise_salary;
+
+/
+EXECUTE raise_salary(176,10)
 
 
 ```
+Example 2 — Stored Procedure
+```sql
+
+
+
 Example — Function
+CREATE OR REPLACE PROCEDURE query_emp (id     IN  employees.employee_id%TYPE,  name   OUT employees.last_name%TYPE,  salary OUT employees.salary%TYPE) 
+ IS 
+ BEGIN  
+ SELECT   last_name, salary INTO name, salary   
+ FROM    employees   
+ WHERE   employee_id = id; 
+ END query_emp;
 
 
+DECLARE  emp_name employees.last_name%TYPE;
+ emp_sal  employees.salary%TYPE;
+BEGIN  query_emp(171, emp_name, emp_sal);
+... END;
+
+```
+Example 1 — Stored Functions
 ```sql
-CREATE FUNCTION dbo.GetActiveOrders(@CustomerID INT)
-RETURNS TABLE
-AS
-RETURN
-(
-    SELECT OrderID, OrderDate, TotalAmount
-    FROM dbo.Orders
-    WHERE CustomerID = @CustomerID AND Status = 'Active'
-);
+CREATE [OR REPLACE] FUNCTION function_name [(parameter1 [mode1] datatype1, ...)]
+RETURN datatype
+IS|AS
+[local_variable_declarations; …]
+BEGIN  -- actions; 
+ RETURN expression;
+END [function_name];
+
+```
+Example 2 — Stored Functions
+```sql
+CREATE OR REPLACE FUNCTION get_sal (id employees.employee_id%TYPE)
+RETURN NUMBER
+IS  sal employees.salary%TYPE := 0;
+BEGIN  SELECT salary
+INTO   sal
+FROM   employees
+WHERE  employee_id = id;
+ RETURN sal;
+END get_sal; /
+
+
+EXECUTE dbms_output.put_line(get_sal(100))
 
 
 ```
+
 # 2) SQL Server Triggers
 
 *Overview*
 
-A Trigger is a piece of SQL code that executes automatically when a specific event occurs in the database, such as an INSERT, UPDATE, or DELETE operation. Triggers are great for enforcing rules or recording changes without requiring manual actions.
+A trigger:
+Is a PL/SQL block or a PL/SQL procedure associated with a
+table, view, schema, or database
+Executes implicitly whenever a particular event takes place
+Can be either of the following:
+Application trigger:Fires whenever an event occurs with a particular application 
+Database trigger: Fires whenever a data event (such as DML) or system event (such as logon or shutdown) occurs on a schema or database
+
 
 There are two main types of triggers in SQL Server:
 
@@ -85,38 +128,43 @@ SQL Server provides two virtual tables inside triggers:
     - inserted, holds new records
     - deleted, holds old records that were modified or deleted
 
+•Types of DML Triggers:
+The trigger type determines whether the body executes for each row or only once for the triggering statement.
 
-  Example — AFTER DELETE trigger for audit logging
+-A statement trigger:
+Executes once for the triggering event Is the default type of trigger Fires once even if no rows are affected at all
+
+-A row trigger:
+Executes once for each row affected by the triggering event Is not executed if the triggering event does not affect any rows Is indicated by specifying the FOR EACH ROW clause
+
+• Trigger Timing
+When should the trigger fire?
+  BEFORE: Execute the trigger body before the triggering DML
+event on a table.
+  AFTER: Execute the trigger body after the triggering DML
+event on a table.
+  INSTEAD OF: Execute the trigger body instead of the
+triggering statement. This is used for views that are not
+otherwise modifiable. Note: If multiple triggers are defined for the same object, then the order of firing triggers is arbitrary.
+
+
+  Example —  trigger 
 
 
 ```
-CREATE TRIGGER dbo.trg_Employee_Delete
-ON dbo.Employees
-AFTER DELETE
-AS
-BEGIN
-    SET NOCOUNT ON;
-    INSERT INTO dbo.EmployeeAudit (EmployeeID, Action, ActionDate, OldName)
-    SELECT EmployeeID, 'DELETE', GETDATE(), Name
-    FROM deleted;
-END;
+CREATE [OR REPLACE] TRIGGER trigger_name
+timing
+event1 [OR event2 OR event3]
+ON object_name
+[[REFERENCING OLD AS old | NEW AS new]
+FOR EACH ROW
+[WHEN (condition)]]
+trigger_body
+
 
 
 ```
-Example — INSTEAD OF trigger on a view
 
-
-```sql
-CREATE TRIGGER trg_vw_Order_Insert
-ON dbo.vw_OrdersCustomers
-INSTEAD OF INSERT
-AS
-BEGIN
-    SET NOCOUNT ON;
-    INSERT INTO dbo.Orders (CustomerID, TotalAmount)
-    SELECT CustomerID, TotalAmount FROM inserted;
-END;
-```
 # 3) Views
 
 *Overview*
