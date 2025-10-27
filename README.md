@@ -136,7 +136,7 @@ The trigger type determines whether the body executes for each row or only once 
      Executes once for the triggering event Is the default type of trigger Fires once even if no rows are affected at all
 
     -A row trigger:
-Executes once for each row affected by the triggering event Is not executed if the triggering event does not affect any rows Is indicated by specifying the FOR EACH ROW clause
+    Executes once for each row affected by the triggering event Is not executed if the triggering event does not affect any rows Is indicated by specifying the FOR EACH ROW clause
 
 • Trigger Timing
 When should the trigger fire?
